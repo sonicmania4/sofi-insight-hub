@@ -1,5 +1,4 @@
-// src/components/NewsSection.tsx
-import { news, NewsItem } from "@/data/news";
+import { NewsItem } from "@/data/news";
 import SectionTitle from "@/components/ui/SectionTitle";
 import Badge from "@/components/ui/Badge";
 
@@ -12,7 +11,11 @@ const categoryVariant: Record<NewsItem["category"], "indigo" | "cyan" | "green" 
   経営: "rose",
 };
 
-export default function NewsSection() {
+interface NewsSectionProps {
+  news?: NewsItem[];
+}
+
+export default function NewsSection({ news = [] }: NewsSectionProps) {
   return (
     <section id="news" className="section-container">
       <div className="max-w-6xl mx-auto">

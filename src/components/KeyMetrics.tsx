@@ -1,8 +1,11 @@
-// src/components/KeyMetrics.tsx
-import { metrics } from "@/data/metrics";
+import { Metric } from "@/data/metrics";
 import SectionTitle from "@/components/ui/SectionTitle";
 
-export default function KeyMetrics() {
+interface KeyMetricsProps {
+  metrics?: Metric[];
+}
+
+export default function KeyMetrics({ metrics = [] }: KeyMetricsProps) {
   return (
     <section id="metrics" className="section-container bg-slate-900/40">
       <div className="max-w-6xl mx-auto">
