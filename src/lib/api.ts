@@ -24,10 +24,12 @@ const translateOptions = {
 async function safeTranslate(text: string): Promise<string> {
   if (!text) return "";
   try {
-    return await translate(text, translateOptions);
+    // 翻訳実行 (最速・最小限の引数で試行)
+    return await translate(text, "ja");
   } catch (error) {
-    console.error("Translation Error, falling back to original:", error);
-    return text; // 翻訳失敗時は英語のまま返す
+    // 翻訳失敗時はログを出して原文を返す (セクションを落とさない)
+    console.warn("Translation failed, using original:", text.substring(0, 20));
+    return text;
   }
 }
 
