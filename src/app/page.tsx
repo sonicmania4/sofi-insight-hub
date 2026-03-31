@@ -8,18 +8,21 @@ import NewsSection from "@/components/NewsSection";
 import BusinessSegments from "@/components/BusinessSegments";
 import InvestorNotes from "@/components/InvestorNotes";
 import AffiliateSection from "@/components/AffiliateSection";
+import OverseasSentiment from "@/components/OverseasSentiment";
 import Footer from "@/components/Footer";
-import { getLiveMetrics, getLiveNews, getMarketSummary } from "@/lib/api";
+import { getLiveMetrics, getLiveNews, getMarketSummary, getRedditSentiment, getOverseasNews } from "@/lib/api";
 
 // 1時間ごとにページを再検証（ISR）
 export const revalidate = 3600;
 
 export default async function HomePage() {
   // サーバーサイドでライブデータをフェッチ
-  const [liveMetrics, liveNews, market] = await Promise.all([
+  const [liveMetrics, liveNews, market, redditPosts, overseasNews] = await Promise.all([
     getLiveMetrics(),
     getLiveNews(),
     getMarketSummary(),
+    getRedditSentiment(),
+    getOverseasNews(),
   ]);
 
   return (
@@ -56,6 +59,7 @@ export default async function HomePage() {
       <EarningsHighlights />
       <IRDocuments />
       <NewsSection news={liveNews} />
+      <OverseasSentiment redditPosts={redditPosts} overseasNews={overseasNews} />
       <BusinessSegments />
       <InvestorNotes />
       <AffiliateSection />
