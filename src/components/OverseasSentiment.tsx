@@ -48,16 +48,16 @@ export default function OverseasSentiment({
               <Badge label="翻訳" variant="amber" />
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               {redditPosts.length > 0 ? (
                 redditPosts.map((post) => (
                   <div
                     key={post.id}
-                    className="glass-card p-4 border-l-2 border-l-orange-500/50 hover:bg-slate-800/40 transition-colors"
+                    className="glass-card p-3 border-l-2 border-l-orange-500/50 hover:bg-slate-800/40 transition-colors flex flex-col justify-center"
                   >
-                    <div className="flex justify-between items-start mb-2">
-                      <span className="text-xs text-slate-500 font-mono">
-                        u/{post.author} · {post.date}
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="text-[10px] text-slate-500 font-mono">
+                        {post.date}
                       </span>
                       <a
                         href={post.link}
@@ -65,20 +65,17 @@ export default function OverseasSentiment({
                         rel="noopener noreferrer"
                         className="text-[10px] text-orange-400 hover:underline"
                       >
-                        元の投稿 →
+                        元記事 →
                       </a>
                     </div>
-                    <p className="text-sm text-white font-semibold leading-relaxed mb-2">
+                    <p className="text-sm text-white font-bold leading-snug line-clamp-2">
                       {post.title}
-                    </p>
-                    <p className="text-[10px] text-slate-600 italic">
-                      Original: {post.original.substring(0, 80)}...
                     </p>
                   </div>
                 ))
               ) : (
-                <div className="text-xs text-slate-600 text-center py-10 glass-card">
-                  Reddit情報を取得中、または一時的に利用不可です。
+                <div className="text-xs text-slate-600 text-center py-6 glass-card">
+                  一時的に利用不可です。
                 </div>
               )}
             </div>
@@ -92,15 +89,15 @@ export default function OverseasSentiment({
               <Badge label="翻訳" variant="cyan" />
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               {overseasNews.length > 0 ? (
                 overseasNews.map((news) => (
                   <div
                     key={news.id}
-                    className="glass-card p-4 border-l-2 border-l-cyan-500/50 hover:bg-slate-800/40 transition-colors"
+                    className="glass-card p-3 border-l-2 border-l-cyan-500/50 hover:bg-slate-800/40 transition-colors flex flex-col justify-center"
                   >
-                    <div className="flex justify-between items-start mb-2">
-                      <span className="text-xs text-slate-400 font-bold">
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="text-[10px] text-slate-400 font-bold">
                         {news.source} · {news.date}
                       </span>
                       <a
@@ -109,23 +106,17 @@ export default function OverseasSentiment({
                         rel="noopener noreferrer"
                         className="text-[10px] text-cyan-400 hover:underline"
                       >
-                        記事を読む →
+                        元記事 →
                       </a>
                     </div>
-                    <h4 className="text-sm text-white font-bold leading-snug mb-2">
+                    <h4 className="text-sm text-white font-bold leading-snug line-clamp-2">
                       {news.title}
                     </h4>
-                    <p className="text-[11px] text-slate-300 leading-relaxed mb-2">
-                      {news.summary}...
-                    </p>
-                    <p className="text-[10px] text-slate-600 italic">
-                      Original: {news.originalTitle?.substring(0, 60)}...
-                    </p>
                   </div>
                 ))
               ) : (
-                <div className="text-xs text-slate-600 text-center py-10 glass-card">
-                  海外メディア情報を取得中、または一時的に利用不可です。
+                <div className="text-xs text-slate-600 text-center py-6 glass-card">
+                  一時的に利用不可です。
                 </div>
               )}
             </div>
