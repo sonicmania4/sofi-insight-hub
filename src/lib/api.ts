@@ -78,21 +78,20 @@ export async function getLiveNews(): Promise<NewsItem[]> {
  */
 export async function getRedditSentiment() {
   try {
-    const REDDIT_JSON = "https://www.reddit.com/r/sofistock/new.json";
-    const response = await fetch(REDDIT_JSON, {
+    const PULLPUSH_API = "https://api.pullpush.io/reddit/search/submission/?subreddit=sofistock&sort=desc&size=3";
+    const response = await fetch(PULLPUSH_API, {
       headers: {
         "User-Agent": "sofi-insight-hub/1.0",
       },
       cache: "no-store",
     });
 
-    if (!response.ok) throw new Error(`Reddit error: ${response.status}`);
-    const data = await response.json();
-    const items = data.data.children.slice(0, 3);
+    if (!response.ok) throw new Error(`PullPush error: ${response.status}`);
+    const resData = await response.json();
+    const items = resData.data || [];
 
     const posts = await Promise.all(
-      items.map(async (child: any) => {
-        const item = child.data;
+      items.map(async (item: any) => {
         const translatedTitle = await safeTranslate(item.title || "");
         return {
           id: item.id,
@@ -100,7 +99,7 @@ export async function getRedditSentiment() {
           original: item.title,
           author: item.author || "Redditユーザー",
           date: new Date(item.created_utc * 1000).toLocaleDateString("ja-JP"),
-          link: `https://www.reddit.com${item.permalink}`,
+          link: `https://www.reddit.com/r/sofistock/comments/${item.id}`,
         };
       })
     );
