@@ -81,9 +81,9 @@ export async function getRedditSentiment() {
     const REDDIT_JSON = "https://www.reddit.com/r/sofistock/new.json";
     const response = await fetch(REDDIT_JSON, {
       headers: {
-        "User-Agent": "sofi-insight-hub-reader/1.0.0",
+        "User-Agent": "sofi-insight-hub/1.0",
       },
-      next: { revalidate: 3600 },
+      cache: "no-store",
     });
 
     if (!response.ok) throw new Error(`Reddit error: ${response.status}`);
